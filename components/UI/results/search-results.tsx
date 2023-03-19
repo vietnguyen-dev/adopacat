@@ -13,7 +13,7 @@ import iCatData from "interfaces/iCataData";
 import { useNavigation } from "@react-navigation/native";
 
 interface iSearchResults {
-  searchQuery: string | undefined;
+  searchQuery: string;
   catData: iCatData[];
 }
 
@@ -21,25 +21,27 @@ interface iSearchResult {
   catData: iCatData;
 }
 
-const SearchResult = ({ catData }: iSearchResult) => {
+export const SearchResult = ({ catData }: iSearchResult) => {
   const navigation = useNavigation();
 
-  //   console.log(image);
   return (
     <View>
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("CatInfo" as never, { ...catData } as never)
-        }
-      >
-        {catData.image.url && (
+      {catData.hasOwnProperty("image") ? (
+        <TouchableOpacity
+          style={searchStyles.searchResult}
+          onPress={() =>
+            navigation.navigate("CatInfo" as never, { ...catData } as never)
+          }
+        >
           <Image
             source={{ uri: catData.image.url }}
-            style={{ width: 50, height: 50 }}
+            style={{ width: 50, height: 49 }}
           />
-        )}
-        <Text>{catData.name}</Text>
-      </TouchableOpacity>
+          <Text style={searchStyles.searchName}>{catData.name}</Text>
+        </TouchableOpacity>
+      ) : (
+        <Text style={{ height: 50 }}>No Data Available</Text>
+      )}
     </View>
   );
 };
@@ -52,12 +54,15 @@ const SearchResults = ({ searchQuery, catData }: iSearchResults) => {
   return (
     <View>
       <SafeAreaView style={searchStyles.relative}>
-        <FlatList
-          data={filteredCats}
-          style={searchStyles.searchResult}
-          renderItem={({ item }) => <SearchResult catData={item} />}
-          keyExtractor={(item) => item.id}
-        />
+        {filteredCats.length > 0 ? (
+          <FlatList
+            data={filteredCats}
+            renderItem={({ item }) => <SearchResult catData={item} />}
+            keyExtractor={(item) => item.id}
+          />
+        ) : (
+          <Text>No results </Text>
+        )}
       </SafeAreaView>
     </View>
   );
@@ -67,6 +72,7 @@ const searchStyles = StyleSheet.create({
   relative: {
     position: "relative",
     height: 650,
+    top: 10,
   },
   searchContainer: {
     position: "absolute",
@@ -78,9 +84,14 @@ const searchStyles = StyleSheet.create({
   searchResult: {
     flex: 1,
     flexDirection: "row",
-    borderColor: "black",
+    borderBottomColor: "black",
     borderWidth: 1,
     height: 50,
+  },
+  searchName: {
+    position: "relative",
+    top: 15,
+    left: 10,
   },
 });
 

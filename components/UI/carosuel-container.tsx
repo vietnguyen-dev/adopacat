@@ -12,7 +12,7 @@ const CarosuelContainer = ({ title, data }: iCarosuelContainer) => {
   return (
     <View style={carosuelStyle.carosuelContainer}>
       <Text style={carosuelStyle.titleText}>{title}</Text>
-      <ScrollView horizontal={true} persistentScrollbar={false}>
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         {data.length > 0 ? (
           data.map((cat) => <Card key={cat.id} catData={cat} />)
         ) : (
@@ -25,7 +25,7 @@ const CarosuelContainer = ({ title, data }: iCarosuelContainer) => {
 
 const carosuelStyle = StyleSheet.create({
   carosuelContainer: {
-    marginHorizontal: 20,
+    paddHorizontal: 20,
     marginVertical: 20,
     // position: "absolute",
     // top: 0,
