@@ -7,9 +7,11 @@ import {
   TouchableOpacity,
   Keyboard,
   TouchableWithoutFeedback,
-  StatusBar,
+  // StatusBar,
 } from "react-native";
 import { useState, useEffect } from "react";
+
+import Page from "../../components/UI/page";
 
 import { CAT_API_URL, CAT_API_KEY } from "@env";
 import iCatData from "../../interfaces/iCataData";
@@ -53,37 +55,41 @@ export default function Home() {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={removeKeyboard}>
-      <View style={style.container}>
-        <View style={style.searchContainer}>
-          <TextInput
-            style={search.length > 0 ? style.textInputActive : style.textInput}
-            onChangeText={setSearch}
-            placeholder="Search"
-            // onEndEditing={removeKeyboard}
-            value={search}
-          />
-          {search?.length > 0 && (
-            <TouchableOpacity
-              onPress={() => setSearch("")}
-              style={style.cancelButton}
-            >
-              <Text style={{ textAlign: "center", paddingTop: "4%" }}>
-                Cancel
-              </Text>
-            </TouchableOpacity>
+    <Page>
+      <TouchableWithoutFeedback onPress={removeKeyboard}>
+        <View style={style.container}>
+          <View style={style.searchContainer}>
+            <TextInput
+              style={
+                search.length > 0 ? style.textInputActive : style.textInput
+              }
+              onChangeText={setSearch}
+              placeholder="Search"
+              // onEndEditing={removeKeyboard}
+              value={search}
+            />
+            {search?.length > 0 && (
+              <TouchableOpacity
+                onPress={() => setSearch("")}
+                style={style.cancelButton}
+              >
+                <Text style={{ textAlign: "center", paddingTop: "4%" }}>
+                  Cancel
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
+          {search?.length !== 0 ? (
+            <SearchResults catData={cats} searchQuery={search} />
+          ) : (
+            <>
+              <CarosuelContainer title="Popular" data={popular} />
+              <CarosuelContainer title="Nearby" data={nearby} />
+            </>
           )}
         </View>
-        {search?.length !== 0 ? (
-          <SearchResults catData={cats} searchQuery={search} />
-        ) : (
-          <>
-            <CarosuelContainer title="Popular" data={popular} />
-            <CarosuelContainer title="Nearby" data={nearby} />
-          </>
-        )}
-      </View>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
+    </Page>
   );
 }
 

@@ -9,13 +9,14 @@ import {
 } from "react-native";
 import { useState, useContext } from "react";
 
-import { FavoritesContext } from "../../context/index";
+import { AppContext } from "../../context/index";
 
 import FavoritesResults from "../UI/results/favorite-results";
+import Page from "../UI/page";
 
 export default function Favorites() {
   const [show, setShow] = useState<boolean>(false);
-  const context = useContext(FavoritesContext);
+  const context = useContext(AppContext);
 
   const clearDisabled = context.favorites.length > 0;
 
@@ -29,57 +30,59 @@ export default function Favorites() {
   };
 
   return (
-    <View style={favoritesStyles.container}>
-      <View style={favoritesStyles.titleContainer}>
-        <Text style={favoritesStyles.title}>Favorites</Text>
-        <TouchableOpacity
-          activeOpacity={1}
-          style={
-            clearDisabled
-              ? favoritesStyles.clearButton
-              : favoritesStyles.clearButtonDisabled
-          }
-        >
-          <Button
-            onPress={showModal}
-            title="Remove All"
-            color="white"
-            disabled={!clearDisabled}
-            accessibilityLabel="Learn more about this purple button"
-          />
-        </TouchableOpacity>
-      </View>
-      <FavoritesResults catData={context.favorites} />
-      <View>
-        <Modal animationType="fade" transparent={true} visible={show}>
-          <View style={favoritesStyles.modalOuterView}>
-            <View style={favoritesStyles.modalView}>
-              <TouchableOpacity
-                style={favoritesStyles.cancelButton}
-                onPress={() => setShow(false)}
-              >
-                <Text style={{ textAlign: "center" }}>Cancel</Text>
-              </TouchableOpacity>
-              <Text style={favoritesStyles.modalText}>
-                Are you sure you want to clear all your favorites cats?{" "}
-              </Text>
-              <Text style={favoritesStyles.modalText}>
-                This Action is undoable
-              </Text>
-              <TouchableOpacity style={favoritesStyles.clearConfirmButton}>
-                <Button
-                  onPress={modalClose}
-                  title="Confirm Clear All"
-                  color="white"
-                  disabled={!clearDisabled}
-                  accessibilityLabel="Learn more about this purple button"
-                />
-              </TouchableOpacity>
+    <Page>
+      <View style={favoritesStyles.container}>
+        <View style={favoritesStyles.titleContainer}>
+          <Text style={favoritesStyles.title}>Favorites</Text>
+          <TouchableOpacity
+            activeOpacity={1}
+            style={
+              clearDisabled
+                ? favoritesStyles.clearButton
+                : favoritesStyles.clearButtonDisabled
+            }
+          >
+            <Button
+              onPress={showModal}
+              title="Remove All"
+              color="white"
+              disabled={!clearDisabled}
+              accessibilityLabel="Learn more about this purple button"
+            />
+          </TouchableOpacity>
+        </View>
+        <FavoritesResults catData={context.favorites} />
+        <View>
+          <Modal animationType="fade" transparent={true} visible={show}>
+            <View style={favoritesStyles.modalOuterView}>
+              <View style={favoritesStyles.modalView}>
+                <TouchableOpacity
+                  style={favoritesStyles.cancelButton}
+                  onPress={() => setShow(false)}
+                >
+                  <Text style={{ textAlign: "center" }}>Cancel</Text>
+                </TouchableOpacity>
+                <Text style={favoritesStyles.modalText}>
+                  Are you sure you want to clear all your favorites cats?{" "}
+                </Text>
+                <Text style={favoritesStyles.modalText}>
+                  This Action is undoable
+                </Text>
+                <TouchableOpacity style={favoritesStyles.clearConfirmButton}>
+                  <Button
+                    onPress={modalClose}
+                    title="Confirm Clear All"
+                    color="white"
+                    disabled={!clearDisabled}
+                    accessibilityLabel="Learn more about this purple button"
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </Modal>
+          </Modal>
+        </View>
       </View>
-    </View>
+    </Page>
   );
 }
 
@@ -92,9 +95,8 @@ const favoritesStyles = StyleSheet.create({
     height: "90%",
   },
   titleContainer: {
-    flex: 1,
+    // flex: 1,
     flexDirection: "row",
-    // justifyContent: "flex-end",
   },
   title: {
     fontSize: 32,

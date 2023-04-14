@@ -16,7 +16,7 @@ const Card = ({ catData, size }: iCard) => {
       <TouchableOpacity
         activeOpacity={1}
         onPress={() =>
-          navigation.navigate("CatInfo" as never, { ...catData } as never)
+          navigation.navigate("Cat Info" as never, { ...catData } as never)
         }
       >
         <Image

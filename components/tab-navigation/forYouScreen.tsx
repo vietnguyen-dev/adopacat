@@ -13,7 +13,7 @@ export default function ForYouScreen() {
       //   screenOptions={{ headerShown: false }}
     >
       <Stack.Screen
-        name="For You Page"
+        name="ForYouPage"
         component={ForYou}
         options={{ headerShown: false }}
       />
@@ -22,7 +22,7 @@ export default function ForYouScreen() {
         component={ForYouResults}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="CatInfo" component={CatInfo} />
+      <Stack.Screen name="Cat Info" component={CatInfo} />
     </Stack.Navigator>
   );
 }

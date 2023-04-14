@@ -1,29 +1,33 @@
 import { useState, createContext } from "react";
 import iCatData from "interfaces/iCataData";
 
-interface iFavoritesContext {
+interface iAppContext {
   favorites: [] | iCatData[];
   addToFavorites: Function;
   removeFromFavorites: Function;
   clearFavorites: Function;
+  myCats: [] | iCatData[];
+  addToMyCats: Function;
 }
 
-const initFavoritesContext = {
+const initAppContext = {
   favorites: [],
   addToFavorites: () => null,
   removeFromFavorites: () => null,
   clearFavorites: () => null,
+  myCats: [],
+  addToMyCats: () => null,
 };
 
-export const FavoritesContext =
-  createContext<iFavoritesContext>(initFavoritesContext);
+export const AppContext = createContext<iAppContext>(initAppContext);
 
 interface iComponentWithChildren {
   children: React.ReactNode;
 }
 
-const FavoritesContextProvider = ({ children }: iComponentWithChildren) => {
+const AppContextProvider = ({ children }: iComponentWithChildren) => {
   const [favorites, setFavorites] = useState<[] | iCatData[]>([]);
+  const [myCats, setmyCats] = useState<[] | iCatData[]>([]);
 
   const addToFavorites = (obj: iCatData) => {
     setFavorites([...favorites, obj]);
@@ -38,18 +42,20 @@ const FavoritesContextProvider = ({ children }: iComponentWithChildren) => {
     setFavorites([]);
   };
 
+  const addToMyCats = (obj: iCatData) => {
+    setmyCats([...myCats, obj]);
+  };
+
   const values = {
     favorites,
     addToFavorites,
     removeFromFavorites,
     clearFavorites,
+    myCats,
+    addToMyCats,
   };
 
-  return (
-    <FavoritesContext.Provider value={values}>
-      {children}
-    </FavoritesContext.Provider>
-  );
+  return <AppContext.Provider value={values}>{children}</AppContext.Provider>;
 };
 
-export default FavoritesContextProvider;
+export default AppContextProvider;

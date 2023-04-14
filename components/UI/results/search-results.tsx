@@ -30,7 +30,7 @@ export const SearchResult = ({ catData }: iSearchResult) => {
         <TouchableOpacity
           style={searchStyles.searchResult}
           onPress={() =>
-            navigation.navigate("CatInfo" as never, { ...catData } as never)
+            navigation.navigate("Cat Info" as never, { ...catData } as never)
           }
         >
           <Image

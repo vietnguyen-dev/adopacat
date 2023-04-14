@@ -6,14 +6,13 @@ import {
   Text,
   StyleSheet,
   Image,
-  Button,
 } from "react-native";
 import { useContext } from "react";
 
 import iCatData from "interfaces/iCataData";
 import { useNavigation } from "@react-navigation/native";
 
-import { FavoritesContext } from "../../../context";
+import { AppContext } from "../../../context";
 
 interface iFavoritesList {
   catData: iCatData[];
@@ -24,7 +23,7 @@ interface iFavorite {
 }
 
 export const FavoritesResult = ({ catData }: iFavorite) => {
-  const context = useContext(FavoritesContext);
+  const context = useContext(AppContext);
   const navigation = useNavigation();
 
   const remove = () => {
@@ -37,7 +36,7 @@ export const FavoritesResult = ({ catData }: iFavorite) => {
         <TouchableOpacity
           style={searchStyles.searchResult}
           onPress={() =>
-            navigation.navigate("CatInfo" as never, { ...catData } as never)
+            navigation.navigate("Cat Info" as never, { ...catData } as never)
           }
         >
           <Image
@@ -88,7 +87,6 @@ const searchStyles = StyleSheet.create({
     position: "absolute",
     top: 0,
     left: 0,
-    // zIndex: 2,
     height: "100%",
   },
   searchResult: {
@@ -107,10 +105,6 @@ const searchStyles = StyleSheet.create({
   },
   removeButton: {
     marginLeft: "auto",
-    // backgroundColor: "red",
-    // flex: 1,
-    // alignContent: "flex-end",
-    // justifyContent: "center",
     borderRadius: 50,
     padding: 10,
   },

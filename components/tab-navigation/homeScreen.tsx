@@ -18,7 +18,7 @@ export default function HomeScreen() {
         component={Home}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="CatInfo" component={CatInfo} />
+      <Stack.Screen name="Cat Info" component={CatInfo} />
     </Stack.Navigator>
   );
 }

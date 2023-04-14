@@ -14,7 +14,7 @@ const CarosuelContainer = ({ title, data }: iCarosuelContainer) => {
       <Text style={carosuelStyle.titleText}>{title}</Text>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         {data.length > 0 ? (
-          data.map((cat) => <Card key={cat.id} catData={cat} />)
+          data.map((cat) => <Card key={cat.id} catData={cat} size={"small"} />)
         ) : (
           <Text>Loading...</Text>
         )}

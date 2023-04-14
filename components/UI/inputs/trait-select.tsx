@@ -10,9 +10,7 @@ import {
 
 import SelectDropdown from "react-native-select-dropdown";
 
-// const staticImage = require("./src/assets/remove.png");
 import { traitList, iTraits } from "./traits-list";
-import iCatData from "interfaces/iCataData";
 
 interface iTraitSelect {
   traits: [] | iTraits[];
@@ -104,9 +102,6 @@ const styles = StyleSheet.create({
   },
   removeTrait: {
     marginLeft: "auto",
-    // backgroundColor: "red",
-    // borderTopRightRadius: 10,
-    // borderBottomEndRadius: 10,
     padding: 10,
     borderRadius: 50,
   },

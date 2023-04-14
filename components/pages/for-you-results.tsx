@@ -5,7 +5,7 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 import { useNavigation, useRoute } from "@react-navigation/native";
 
@@ -72,16 +72,14 @@ const ForYouResults = () => {
     <View style={resultStyles.container}>
       <Text style={resultStyles.resultsTitle}>For You Results</Text>
       {results.length > 0 ? (
-        <View>
-          <FlatList
-            contentContainerStyle={{ margin: 4 }}
-            data={results}
-            renderItem={({ item }) => <Card catData={item} size="small" />}
-            keyExtractor={(item) => item.id}
-            numColumns={2}
-            horizontal={false}
-          />
-        </View>
+        <FlatList
+          contentContainerStyle={{ margin: 4 }}
+          data={results}
+          renderItem={({ item }) => <Card catData={item} size="small" />}
+          keyExtractor={(item) => item.id}
+          numColumns={2}
+          horizontal={false}
+        />
       ) : (
         <Text>Loading...</Text>
       )}
@@ -93,6 +91,7 @@ const resultStyles = StyleSheet.create({
   container: {
     marginTop: "10%",
     marginBottom: "5%",
+    height: "95%",
   },
   result: {
     margin: "10%",

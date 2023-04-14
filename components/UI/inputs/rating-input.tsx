@@ -73,8 +73,6 @@ export default RatingInput;
 
 const styles = StyleSheet.create({
   traitContainer: {
-    // borderWidth: 1,
-    // borderColor: "black",
     flex: 4,
   },
   ratingInput: {
@@ -111,8 +109,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   ratingBox: {
-    // borderWidth: 2,
-    // borderColor: "black",
     flex: 2,
     flexDirection: "row",
     justifyContent: "flex-end",
@@ -123,6 +119,5 @@ const styles = StyleSheet.create({
     width: 35,
     height: 35,
     borderRadius: 6,
-    // te
   },
 });
