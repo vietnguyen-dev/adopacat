@@ -10,34 +10,26 @@ interface iCard {
 
 const Card = ({ catData, size }: iCard) => {
   const navigation = useNavigation();
+  const cardClass = size === "small" ? "text-white m-4" : "text-white m-4 ";
 
   return (
-    <View style={size ? cardStyles.cardSM : cardStyles.card}>
+    <View className={"m-4 border-2 border-white"}>
       <TouchableOpacity
-        activeOpacity={1}
+        // activeOpacity={1}
         onPress={() =>
           navigation.navigate("Cat Info" as never, { ...catData } as never)
         }
       >
-        <Image
-          source={{ uri: catData.image.url }}
-          style={size ? cardStyles.cardImageSM : cardStyles.cardImage}
-        />
-        <Text style={cardStyles.cardText}>{catData.name}</Text>
+        <Image source={{ uri: catData.image.url }} className="w-40 h-48" />
+        <Text className="text-white pl-5 py-3 text-xl">{catData.name}</Text>
       </TouchableOpacity>
     </View>
   );
 };
 const cardStyles = StyleSheet.create({
-  card: {
-    marginRight: 30,
-    borderColor: "rgba(0, 0, 0, .5)",
-    borderWidth: 3,
-    borderRadius: 25,
-  },
   cardImage: {
-    width: 200,
-    height: 200,
+    width: 250,
+    height: 250,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },

@@ -10,13 +10,11 @@ const Page = ({ children }: iPage) => {
 
   const schema = {
     null: "default",
-    light: "dark-content",
-    dark: "light-content",
+    light: "light-content",
+    dark: "dark-content",
   };
 
   const bar = schema[colorScheme!] as StatusBarStyle;
-
-  console.log(colorScheme, bar);
 
   return (
     <>

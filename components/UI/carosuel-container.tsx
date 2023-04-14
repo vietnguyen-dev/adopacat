@@ -10,30 +10,17 @@ interface iCarosuelContainer {
 
 const CarosuelContainer = ({ title, data }: iCarosuelContainer) => {
   return (
-    <View style={carosuelStyle.carosuelContainer}>
-      <Text style={carosuelStyle.titleText}>{title}</Text>
+    <View className="pt-10">
+      <Text className="pt-6 pl-6 text-white text-4xl">{title}</Text>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         {data.length > 0 ? (
           data.map((cat) => <Card key={cat.id} catData={cat} size={"small"} />)
         ) : (
-          <Text>Loading...</Text>
+          <Text className="pt-6 pl-6 text-white">Loading...</Text>
         )}
       </ScrollView>
     </View>
   );
 };
-
-const carosuelStyle = StyleSheet.create({
-  carosuelContainer: {
-    paddHorizontal: 20,
-    marginVertical: 20,
-    // position: "absolute",
-    // top: 0,
-  },
-  titleText: {
-    fontSize: 24,
-    marginBottom: 10,
-  },
-});
 
 export default CarosuelContainer;

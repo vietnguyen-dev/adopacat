@@ -4,8 +4,9 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Text,
-  StyleSheet,
   Image,
+  KeyboardAvoidingView,
+  ScrollView,
 } from "react-native";
 import React from "react";
 
@@ -25,22 +26,23 @@ export const SearchResult = ({ catData }: iSearchResult) => {
   const navigation = useNavigation();
 
   return (
-    <View>
+    <View className="p-4">
       {catData.hasOwnProperty("image") ? (
         <TouchableOpacity
-          style={searchStyles.searchResult}
-          onPress={() =>
-            navigation.navigate("Cat Info" as never, { ...catData } as never)
-          }
+          onPress={() => {
+            navigation.navigate("Cat Info" as never, { ...catData } as never);
+          }}
+          className="flex flex-row"
         >
           <Image
             source={{ uri: catData.image.url }}
             style={{ width: 50, height: 49 }}
+            className="rounded-full"
           />
-          <Text style={searchStyles.searchName}>{catData.name}</Text>
+          <Text className="text-white text-2xl py-2 px-4">{catData.name}</Text>
         </TouchableOpacity>
       ) : (
-        <Text style={{ height: 50 }}>No Data Available</Text>
+        <Text className="text-white">No Data Available</Text>
       )}
     </View>
   );
@@ -52,47 +54,18 @@ const SearchResults = ({ searchQuery, catData }: iSearchResults) => {
   );
 
   return (
-    <View>
-      <SafeAreaView style={searchStyles.relative}>
-        {filteredCats.length > 0 ? (
-          <FlatList
-            data={filteredCats}
-            renderItem={({ item }) => <SearchResult catData={item} />}
-            keyExtractor={(item) => item.id}
-          />
-        ) : (
-          <Text>No results </Text>
-        )}
-      </SafeAreaView>
-    </View>
+    <KeyboardAvoidingView className="h-5/6">
+      {filteredCats.length > 0 ? (
+        <ScrollView keyboardShouldPersistTaps="always">
+          {filteredCats.map((cat) => (
+            <SearchResult key={cat.id} catData={cat} />
+          ))}
+        </ScrollView>
+      ) : (
+        <Text className="p-4 text-white">No results </Text>
+      )}
+    </KeyboardAvoidingView>
   );
 };
-
-const searchStyles = StyleSheet.create({
-  relative: {
-    position: "relative",
-    height: 650,
-    top: 10,
-  },
-  searchContainer: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    // zIndex: 2,
-    height: "100%",
-  },
-  searchResult: {
-    flex: 1,
-    flexDirection: "row",
-    borderBottomColor: "black",
-    borderWidth: 1,
-    height: 50,
-  },
-  searchName: {
-    position: "relative",
-    top: 15,
-    left: 10,
-  },
-});
 
 export default SearchResults;

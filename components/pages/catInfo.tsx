@@ -62,7 +62,6 @@ const CatInfo = () => {
             }}
           />
         </View>
-
         <Text>{cat.name}</Text>
         <Text>{cat.description}</Text>
         {!catAlreadyinFavorites ? (

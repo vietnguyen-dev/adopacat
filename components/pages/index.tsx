@@ -24,6 +24,7 @@ export default function Home() {
   const [cats, setCats] = useState<[] | iCatData[]>([]);
   const [popular, setPopular] = useState<[] | iCatData[]>([]);
   const [nearby, setNearby] = useState<[] | iCatData[]>([]);
+  const [inputFocus, setInputFocus] = useState<boolean>(false);
 
   useEffect(() => {
     const getCats = async () => {
@@ -56,80 +57,40 @@ export default function Home() {
 
   return (
     <Page>
-      <TouchableWithoutFeedback onPress={removeKeyboard}>
-        <View style={style.container}>
-          <View style={style.searchContainer}>
-            <TextInput
-              style={
-                search.length > 0 ? style.textInputActive : style.textInput
-              }
-              onChangeText={setSearch}
-              placeholder="Search"
-              // onEndEditing={removeKeyboard}
-              value={search}
-            />
-            {search?.length > 0 && (
-              <TouchableOpacity
-                onPress={() => setSearch("")}
-                style={style.cancelButton}
-              >
-                <Text style={{ textAlign: "center", paddingTop: "4%" }}>
-                  Cancel
-                </Text>
-              </TouchableOpacity>
-            )}
-          </View>
-          {search?.length !== 0 ? (
-            <SearchResults catData={cats} searchQuery={search} />
-          ) : (
-            <>
-              <CarosuelContainer title="Popular" data={popular} />
-              <CarosuelContainer title="Nearby" data={nearby} />
-            </>
+      <View className="py-16">
+        <View className="flex flex-row px-4">
+          <TextInput
+            onChangeText={setSearch}
+            placeholder="Search"
+            placeholderTextColor="white"
+            value={search}
+            onFocus={() => setInputFocus(true)}
+            onBlur={() => setInputFocus(false)}
+            className="text-white border-2 border-white py-2 px-4 rounded-full w-full focus:border-blue-400 blur:border-white"
+          />
+          {inputFocus && (
+            <TouchableOpacity
+              onPress={() => {
+                setSearch("");
+                Keyboard.dismiss();
+              }}
+              className="ml-auto bg-blue-400 rounded-full w-50 my-auto px-4 py-2"
+            >
+              <Text className="text-white">Cancel</Text>
+            </TouchableOpacity>
           )}
         </View>
-      </TouchableWithoutFeedback>
+        {search?.length !== 0 ? (
+          <SearchResults catData={cats} searchQuery={search} />
+        ) : (
+          <TouchableWithoutFeedback onPress={removeKeyboard}>
+            <View>
+              <CarosuelContainer title="Popular" data={popular} />
+              <CarosuelContainer title="Nearby" data={nearby} />
+            </View>
+          </TouchableWithoutFeedback>
+        )}
+      </View>
     </Page>
   );
 }
-
-const style = StyleSheet.create({
-  container: {
-    paddingHorizontal: 15,
-    paddingVertical: 45,
-    height: "93%",
-  },
-  searchContainer: {
-    alignSelf: "center",
-    flexDirection: "row",
-  },
-  textInput: {
-    width: 330,
-    height: 40,
-    marginTop: 15,
-    borderColor: "#212121",
-    borderRadius: 25,
-    borderWidth: 2,
-    paddingLeft: 10,
-  },
-  textInputActive: {
-    width: 300,
-    height: 40,
-    marginTop: 15,
-    borderColor: "#212121",
-    borderRadius: 25,
-    borderWidth: 2,
-    paddingLeft: 10,
-    // marginRight: 'auto'
-  },
-  cancelButton: {
-    borderWidth: 2,
-    borderColor: "#212121",
-    borderRadius: 25,
-    width: 70,
-    height: 30,
-    textAlign: "center",
-    marginTop: 20,
-    marginLeft: 5,
-  },
-});
