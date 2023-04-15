@@ -53,16 +53,30 @@ const SearchResults = ({ searchQuery, catData }: iSearchResults) => {
     cats.name.includes(searchQuery!)
   );
 
+  const popularCats = catData.slice(0, 10);
+  const nearbyCats = catData.slice(11, 20);
+
   return (
     <KeyboardAvoidingView className="h-5/6">
-      {filteredCats.length > 0 ? (
+      {searchQuery.length > 0 ? (
         <ScrollView keyboardShouldPersistTaps="always">
           {filteredCats.map((cat) => (
             <SearchResult key={cat.id} catData={cat} />
           ))}
         </ScrollView>
       ) : (
-        <Text className="p-4 text-white">No results </Text>
+        <ScrollView>
+          <Text className="text-white text-2xl pl-4 pt-4">Popular</Text>
+          <View>
+            {popularCats.map((cat) => (
+              <SearchResult key={cat.id} catData={cat} />
+            ))}
+          </View>
+          <Text className="text-white text-2xl pl-4 pt-4">Nearby</Text>
+          {nearbyCats.map((cat) => (
+            <SearchResult key={cat.id} catData={cat} />
+          ))}
+        </ScrollView>
       )}
     </KeyboardAvoidingView>
   );

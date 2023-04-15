@@ -1,12 +1,5 @@
 // import { StatusBar } from 'expo-status-bar';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Button,
-  Modal,
-} from "react-native";
+import { Text, View, TouchableOpacity, Button, Modal } from "react-native";
 import { useState, useContext } from "react";
 
 import { AppContext } from "../../context/index";
