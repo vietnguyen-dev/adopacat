@@ -1,22 +1,25 @@
 import { ScrollView, View, Text, TouchableOpacity } from "react-native";
-import { useState } from "react";
+import { useRef } from "react";
 
 import { traitList, iTraits } from "./inputs/traits-list";
+import TraitSelect from "./inputs/trait-select";
 
 interface iFilter {
   trait: iTraits;
   searchFilter: string;
   changeFilter: Function;
+  scrollTo: Function;
 }
 
-const Filter = ({ trait, searchFilter, changeFilter }: iFilter) => {
-  const selected = trait.trait === searchFilter;
+const Filter = ({ trait, searchFilter, changeFilter, scrollTo }: iFilter) => {
+  const selected = trait.property === searchFilter;
 
   const change = () => {
     if (selected) {
       changeFilter("");
     } else {
-      changeFilter(trait.trait);
+      changeFilter(trait.property);
+      scrollTo();
     }
   };
 
@@ -40,15 +43,36 @@ interface iSearchFilter {
 }
 
 const SearchFilter = ({ changeFilter, searchFilter }: iSearchFilter) => {
+  const searhFilterRef = useRef<ScrollView>(null);
+
+  const allTraits = traitList.sort((a, b) => {
+    if (a.property === searchFilter) {
+      return -1;
+    } else {
+      return 1;
+    }
+  });
+
   return (
     <View>
-      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-        {traitList.map((trait) => (
+      <ScrollView
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        ref={searhFilterRef}
+      >
+        {allTraits.map((trait) => (
           <Filter
             key={trait.id}
             trait={trait}
             changeFilter={changeFilter}
             searchFilter={searchFilter}
+            scrollTo={() =>
+              searhFilterRef.current?.scrollTo({
+                x: 0,
+                y: 0,
+                animated: true,
+              })
+            }
           />
         ))}
       </ScrollView>

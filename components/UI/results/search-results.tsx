@@ -1,12 +1,11 @@
 import {
   View,
-  FlatList,
-  SafeAreaView,
   TouchableOpacity,
   Text,
   Image,
   KeyboardAvoidingView,
   ScrollView,
+  Platform,
 } from "react-native";
 import React from "react";
 
@@ -16,6 +15,8 @@ import { useNavigation } from "@react-navigation/native";
 interface iSearchResults {
   searchQuery: string;
   catData: iCatData[];
+  filterTrait: string;
+  inputFocus: boolean;
 }
 
 interface iSearchResult {
@@ -48,23 +49,35 @@ export const SearchResult = ({ catData }: iSearchResult) => {
   );
 };
 
-const SearchResults = ({ searchQuery, catData }: iSearchResults) => {
-  const filteredCats = catData.filter((cats) =>
+const SearchResults = ({
+  searchQuery,
+  filterTrait,
+  inputFocus,
+  catData,
+}: iSearchResults) => {
+  const searchedCats = catData.filter((cats) =>
     cats.name.includes(searchQuery!)
   );
-
   const popularCats = catData.slice(0, 10);
   const nearbyCats = catData.slice(11, 20);
+  const filteredCats = catData.filter((cat) => {
+    if (cat[filterTrait as keyof iCatData] === 5) {
+      return cat;
+    }
+  });
 
   return (
-    <KeyboardAvoidingView className="h-5/6">
-      {searchQuery.length > 0 ? (
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      {searchQuery.length > 0 && inputFocus && (
         <ScrollView keyboardShouldPersistTaps="always">
-          {filteredCats.map((cat) => (
+          {searchedCats.map((cat) => (
             <SearchResult key={cat.id} catData={cat} />
           ))}
         </ScrollView>
-      ) : (
+      )}
+      {searchQuery.length === 0 && inputFocus && (
         <ScrollView>
           <Text className="text-white text-2xl pl-4 pt-4">Popular</Text>
           <View>
@@ -74,6 +87,13 @@ const SearchResults = ({ searchQuery, catData }: iSearchResults) => {
           </View>
           <Text className="text-white text-2xl pl-4 pt-4">Nearby</Text>
           {nearbyCats.map((cat) => (
+            <SearchResult key={cat.id} catData={cat} />
+          ))}
+        </ScrollView>
+      )}
+      {filterTrait.length > 0 && searchQuery.length === 0 && !inputFocus && (
+        <ScrollView>
+          {filteredCats.map((cat) => (
             <SearchResult key={cat.id} catData={cat} />
           ))}
         </ScrollView>

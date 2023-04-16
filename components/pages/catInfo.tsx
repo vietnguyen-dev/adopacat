@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
 import { useRoute, useNavigation } from "@react-navigation/native";
 

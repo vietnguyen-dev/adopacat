@@ -92,15 +92,19 @@ export default function Home() {
             />
           )}
         </View>
-        {inputFocus && searchFilter === "" ? (
-          <SearchResults catData={cats} searchQuery={search} />
+        {inputFocus || searchFilter !== "" ? (
+          <SearchResults
+            catData={cats}
+            searchQuery={search}
+            filterTrait={searchFilter}
+            inputFocus={inputFocus}
+          />
         ) : (
           <ScrollView keyboardShouldPersistTaps="always">
             <CarosuelContainer title="Popular" data={popular} />
             <CarosuelContainer title="Nearby" data={nearby} />
           </ScrollView>
         )}
-        {searchFilter !== "" && <Text className="text-white">bye</Text>}
       </View>
     </Page>
   );
