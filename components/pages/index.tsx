@@ -55,10 +55,6 @@ export default function Home() {
     setSearchFilter(filter);
   };
 
-  const removeKeyboard = () => {
-    Keyboard.dismiss();
-  };
-
   return (
     <Page>
       <View className="py-16">
@@ -66,17 +62,22 @@ export default function Home() {
           <View className="flex flex-row px-4 ">
             <TextInput
               onChangeText={setSearch}
-              placeholder="Search"
+              placeholder=""
               placeholderTextColor="white"
               value={search}
               onFocus={() => setInputFocus(true)}
-              onBlur={() => setInputFocus(false)}
-              className="text-white border-2 border-white py-2 px-4 rounded-full w-full focus:border-blue-400 blur:border-white"
+              className={`text-white border-2 border-white py-2 px-4 rounded-full w-full ${
+                inputFocus && "border-blue-400"
+              }`}
             />
+            {inputFocus || (
+              <Text className="text-white absolute top-2.5 left-8">Search</Text>
+            )}
             {inputFocus && (
               <TouchableOpacity
                 onPress={() => {
                   setSearch("");
+                  setInputFocus(false);
                   Keyboard.dismiss();
                 }}
                 className="ml-auto bg-blue-400 rounded-full w-50 my-auto px-4 py-2"
@@ -100,10 +101,12 @@ export default function Home() {
             inputFocus={inputFocus}
           />
         ) : (
-          <ScrollView keyboardShouldPersistTaps="always">
-            <CarosuelContainer title="Popular" data={popular} />
-            <CarosuelContainer title="Nearby" data={nearby} />
-          </ScrollView>
+          <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+            <ScrollView keyboardShouldPersistTaps="always">
+              <CarosuelContainer title="Popular" data={popular} />
+              <CarosuelContainer title="Nearby" data={nearby} />
+            </ScrollView>
+          </TouchableWithoutFeedback>
         )}
       </View>
     </Page>

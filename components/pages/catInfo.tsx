@@ -5,17 +5,15 @@ import {
   Image,
   Button,
   TouchableOpacity,
-  StyleSheet,
 } from "react-native";
 import { useContext } from "react";
 
 import { useRoute, useNavigation } from "@react-navigation/native";
 
 import iCatData from "interfaces/iCataData";
-
 import { AppContext } from "../../context";
-
 import Page from "../UI/page";
+import { traitList } from "../UI/inputs/traits-list";
 
 const CatInfo = () => {
   const route = useRoute();
@@ -50,77 +48,58 @@ const CatInfo = () => {
 
   return (
     <Page>
-      <ScrollView style={catStyle.container}>
-        <View style={catStyle.imageContainer}>
+      <ScrollView className="p-4">
+        <View className="grid place-items-center grid-cols-3">
           <Image
             source={{
               uri: `${cat.image.url}`,
             }}
-            style={{
-              width: 200,
-              height: 200,
-            }}
+            className="w-100 h-64 rounded-lg"
           />
         </View>
-        <Text>{cat.name}</Text>
-        <Text>{cat.description}</Text>
+        <Text className="text-white text-4xl py-5">{cat.name}</Text>
+        <Text className="text-white text-xl">{cat.description}</Text>
+        <Text className="text-white text-2xl pt-5 pb-3">Alternate Names</Text>
+        <Text className="text-white text-xl">{cat.alt_names || "None"}</Text>
         {!catAlreadyinFavorites ? (
-          <TouchableOpacity style={catStyle.addButton}>
+          <TouchableOpacity className="rounded-md bg-blue-400 my-4 mt-10 text-[#212121]">
             <Button
               onPress={addToFavorites}
               title="Add to Favorites"
-              color="white"
+              color="#212121"
               accessibilityLabel="Learn more about this purple button"
             />
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity style={catStyle.removeButton}>
+          <TouchableOpacity className="rounded-md bg-red-600 my-4 mt-10 text-[#212121]">
             <Button
               onPress={removeFromFavorites}
               title="Remove Favorites"
-              color="white"
+              color="#212121"
               accessibilityLabel="Learn more about this purple button"
             />
           </TouchableOpacity>
         )}
         {!catAlreadyinMyCats && (
-          <TouchableOpacity style={catStyle.addButton}>
+          <TouchableOpacity className="rounded-md bg-blue-400 my-2">
             <Button
               onPress={addToMyCats}
               title="Order Now"
-              color="white"
+              color="#212121"
               accessibilityLabel="Learn more about this purple button"
             />
           </TouchableOpacity>
         )}
+        <View className="p-5">
+          {traitList.map((trait) => (
+            <Text key={trait.id} className="text-white text-lg">
+              {trait.trait}
+            </Text>
+          ))}
+        </View>
       </ScrollView>
     </Page>
   );
 };
-
-const catStyle = StyleSheet.create({
-  container: {
-    width: "100%",
-    borderWidth: 1,
-    borderColor: "red",
-    padding: "5%",
-  },
-  imageContainer: {
-    // flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignContent: "center",
-    borderWidth: 1,
-    borderColor: "red",
-  },
-  addButton: {
-    backgroundColor: "blue",
-    marginBottom: "5%",
-  },
-  removeButton: {
-    backgroundColor: "red",
-    marginBottom: "5%",
-  },
-});
 
 export default CatInfo;

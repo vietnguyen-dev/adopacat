@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  SafeAreaView,
-  FlatList,
-} from "react-native";
+import { View, Text, Image, SafeAreaView, FlatList } from "react-native";
 import { useEffect, useState } from "react";
 import * as Progress from "react-native-progress";
 
@@ -39,7 +32,7 @@ const progressMap: iProgressMap = {
 
 const ProgressText = ({ value }: iProgressText) => {
   const used = progressMap[value];
-  return <Text style={orderStyle.progressText}>{used}</Text>;
+  return <Text className="text-white pt-3">{used}</Text>;
 };
 
 const MyCatOrder = ({ catData }: iMyCatOrder) => {
@@ -57,16 +50,20 @@ const MyCatOrder = ({ catData }: iMyCatOrder) => {
   }, [progress]);
 
   return (
-    <View style={orderStyle.orderContainer}>
+    <View className="flex flex-row border-2 border-gray-400/80 rounded-md mb-3">
       <Image
         source={{ uri: catData.image.url }}
-        style={{ width: 100, height: 100 }}
+        className="w-32 h-32 rounded-l-sm"
       />
-      <View style={orderStyle.orderText}>
-        <Text style={orderStyle.title}>{catData.name}</Text>
+      <View className="pl-3 pt-3">
+        <Text className="text-white text-2xl">{catData.name}</Text>
         <ProgressText value={progress} />
-        <View style={orderStyle.progress}>
-          <Progress.Bar progress={progress} width={250} />
+        <View className="pt-3">
+          <Progress.Bar
+            progress={progress}
+            width={230}
+            color={"rgba(96,165,250,1)"}
+          />
         </View>
       </View>
     </View>
@@ -79,7 +76,7 @@ interface iMyCatOrders {
 
 const MyCatOrders = ({ catDataArr }: iMyCatOrders) => {
   return (
-    <SafeAreaView style={orderStyle.allOrderContainer}>
+    <SafeAreaView className="my-6">
       {catDataArr.length > 0 ? (
         <FlatList
           data={catDataArr}
@@ -92,31 +89,5 @@ const MyCatOrders = ({ catDataArr }: iMyCatOrders) => {
     </SafeAreaView>
   );
 };
-
-const orderStyle = StyleSheet.create({
-  allOrderContainer: {
-    marginTop: "5%",
-  },
-  orderText: {
-    paddingLeft: "3%",
-  },
-  orderContainer: {
-    borderColor: "black",
-    borderWidth: 1,
-    marginBottom: "5%",
-    flex: 1,
-    flexDirection: "row",
-  },
-  title: {
-    fontSize: 24,
-  },
-  progress: {
-    marginTop: "auto",
-    marginBottom: "5%",
-  },
-  progressText: {
-    paddingTop: "5%",
-  },
-});
 
 export default MyCatOrders;

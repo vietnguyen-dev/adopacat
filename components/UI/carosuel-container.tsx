@@ -10,8 +10,8 @@ interface iCarosuelContainer {
 
 const CarosuelContainer = ({ title, data }: iCarosuelContainer) => {
   return (
-    <View className="pt-5">
-      <Text className="pt-6 pl-6 text-white text-xl">{title}</Text>
+    <View className="pt-3">
+      <Text className="py-3 pl-6 text-white text-xl">{title}</Text>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         {data.length > 0 ? (
           data.map((cat) => <Card key={cat.id} catData={cat} size={"small"} />)

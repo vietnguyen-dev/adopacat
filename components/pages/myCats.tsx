@@ -12,22 +12,9 @@ export default function MyCats() {
   const navigation = useNavigation();
 
   return (
-    <View style={myCatsStyle.container}>
-      <Text style={myCatsStyle.title}>My Cats</Text>
+    <View className="py-16 px-4">
+      <Text className="text-white text-3xl">My Cats</Text>
       <MyCatOrders catDataArr={context.myCats} />
     </View>
   );
 }
-
-const myCatsStyle = StyleSheet.create({
-  container: {
-    marginHorizontal: 15,
-    marginVertical: 55,
-    // borderColor: "black",
-    // borderWidth: 1,
-    height: "90%",
-  },
-  title: {
-    fontSize: 32,
-  },
-});

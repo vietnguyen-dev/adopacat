@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Platform,
+  Keyboard,
 } from "react-native";
 import React from "react";
 
@@ -71,14 +72,22 @@ const SearchResults = ({
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       {searchQuery.length > 0 && inputFocus && (
-        <ScrollView keyboardShouldPersistTaps="always">
+        <ScrollView
+          keyboardShouldPersistTaps="always"
+          onScroll={() => Keyboard.dismiss()}
+          scrollEventThrottle={0}
+        >
           {searchedCats.map((cat) => (
             <SearchResult key={cat.id} catData={cat} />
           ))}
         </ScrollView>
       )}
       {searchQuery.length === 0 && inputFocus && (
-        <ScrollView>
+        <ScrollView
+          keyboardShouldPersistTaps="always"
+          onScroll={() => Keyboard.dismiss()}
+          scrollEventThrottle={0}
+        >
           <Text className="text-white text-2xl pl-4 pt-4">Popular</Text>
           <View>
             {popularCats.map((cat) => (
