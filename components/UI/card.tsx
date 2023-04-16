@@ -39,7 +39,7 @@ const Card = ({ catData, size }: iCard) => {
     : "../../assets/white-outlined-heart.png";
 
   return (
-    <View className="rounded-lg border-2 border-gray-600/80 ml-5">
+    <View className="rounded-lg border-[1px] border-gray-600/80 ml-5">
       <TouchableOpacity
         activeOpacity={1}
         onPress={() =>

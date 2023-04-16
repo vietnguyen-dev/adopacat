@@ -31,25 +31,25 @@ export const FavoritesResult = ({ catData }: iFavorite) => {
   };
 
   return (
-    <View>
+    <View className="mx-4 mb-6 border-[1px] border-gray-400 rounded-md">
       {catData.hasOwnProperty("image") ? (
         <TouchableOpacity
-          style={searchStyles.searchResult}
           onPress={() =>
             navigation.navigate("Cat Info" as never, { ...catData } as never)
           }
+          className="flex flex-row"
         >
           <Image
             source={{ uri: catData.image.url }}
-            style={{
-              width: 50,
-              height: 49,
-              borderTopLeftRadius: 6,
-              borderBottomLeftRadius: 6,
-            }}
+            className="w-16 h-16 basis-1/8 rounded-l-md"
           />
-          <Text style={searchStyles.searchName}>{catData.name}</Text>
-          <TouchableOpacity style={searchStyles.removeButton} onPress={remove}>
+          <Text className="basis-3/4 pl-3 text-white text-xl pt-3">
+            {catData.name}
+          </Text>
+          <TouchableOpacity
+            onPress={remove}
+            className="basis-1/8 justify-center"
+          >
             <Image
               source={require("../../../assets/remove.png")}
               style={{ width: 25, height: 25 }}
@@ -65,8 +65,8 @@ export const FavoritesResult = ({ catData }: iFavorite) => {
 
 const FavoritesResults = ({ catData }: iFavoritesList) => {
   return (
-    <View>
-      <SafeAreaView style={searchStyles.relative}>
+    <View className="pt-3">
+      <SafeAreaView>
         <FlatList
           data={catData}
           renderItem={({ item }) => <FavoritesResult catData={item} />}
@@ -76,38 +76,5 @@ const FavoritesResults = ({ catData }: iFavoritesList) => {
     </View>
   );
 };
-
-const searchStyles = StyleSheet.create({
-  relative: {
-    position: "relative",
-    height: 650,
-    top: 10,
-  },
-  searchContainer: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    height: "100%",
-  },
-  searchResult: {
-    flex: 1,
-    flexDirection: "row",
-    borderBottomColor: "black",
-    borderWidth: 1,
-    height: 51,
-    borderRadius: 6,
-    marginBottom: "5%",
-  },
-  searchName: {
-    position: "relative",
-    top: 15,
-    left: 10,
-  },
-  removeButton: {
-    marginLeft: "auto",
-    borderRadius: 50,
-    padding: 10,
-  },
-});
 
 export default FavoritesResults;

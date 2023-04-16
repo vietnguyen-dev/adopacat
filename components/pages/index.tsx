@@ -66,12 +66,12 @@ export default function Home() {
               placeholderTextColor="white"
               value={search}
               onFocus={() => setInputFocus(true)}
-              className={`text-white border-2 border-white py-2 px-4 rounded-full w-full ${
+              className={`text-white border-[.5px] border-white py-2 px-4 rounded-full w-full ${
                 inputFocus && "border-blue-400"
               }`}
             />
             {inputFocus || (
-              <Text className="text-white absolute top-2.5 left-8">Search</Text>
+              <Text className="text-white absolute top-2 left-8">Search</Text>
             )}
             {inputFocus && (
               <TouchableOpacity

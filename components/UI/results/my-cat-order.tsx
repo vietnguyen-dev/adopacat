@@ -50,7 +50,7 @@ const MyCatOrder = ({ catData }: iMyCatOrder) => {
   }, [progress]);
 
   return (
-    <View className="flex flex-row border-2 border-gray-400/80 rounded-md mb-3">
+    <View className="flex flex-row border-[.5px] border-gray-400/80 rounded-md mb-3">
       <Image
         source={{ uri: catData.image.url }}
         className="w-32 h-32 rounded-l-sm"
@@ -84,7 +84,7 @@ const MyCatOrders = ({ catDataArr }: iMyCatOrders) => {
           keyExtractor={(item) => item.id}
         />
       ) : (
-        <Text>No Cats Ordered</Text>
+        <Text className="text-white">No Cats Ordered</Text>
       )}
     </SafeAreaView>
   );

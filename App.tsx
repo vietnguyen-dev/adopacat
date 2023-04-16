@@ -1,3 +1,4 @@
+import { Image } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
@@ -37,7 +38,18 @@ export default function App() {
           screenOptions={{ headerShown: false }}
           backBehavior="none"
         >
-          <Tab.Screen name="Home" component={HomeScreen} />
+          <Tab.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{
+              tabBarIcon: () => (
+                <Image
+                  source={require("./assets/house-16.png")}
+                  style={{ width: 16, height: 16 }}
+                />
+              ),
+            }}
+          />
           <Tab.Screen name="For You" component={ForYouScreen} />
           <Tab.Screen name="Favorites" component={FavoritesScreen} />
           <Tab.Screen name="My Cats" component={MyCatsScreen} />

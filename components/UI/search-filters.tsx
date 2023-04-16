@@ -26,7 +26,7 @@ const Filter = ({ trait, searchFilter, changeFilter, scrollTo }: iFilter) => {
   return (
     <TouchableOpacity
       onPress={change}
-      className={`px-3 pl-3 mt-3 ml-4 border-2 border-white rounded-full ${
+      className={`px-3 pl-3 mt-3 ml-4 border-[.5px] border-white rounded-full ${
         selected && "bg-blue-400 border-blue-400"
       }`}
     >
