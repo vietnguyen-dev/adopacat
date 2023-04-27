@@ -31,11 +31,13 @@ const TraitSelect = ({ traits, addTrait, deleteTrait }: iTraitSelect) => {
 
   return (
     <View>
-      <Text style={styles.formTitle}>Trait Select</Text>
+      <Text className="text-white text-2xl text-center pb-3">Trait Select</Text>
       {dropdownDisabled ? (
-        <Text style={styles.formText}>Go to Next Step</Text>
+        <Text className="text-white text-xl text-center pb-3">
+          Go to Next Step
+        </Text>
       ) : (
-        <Text style={styles.formText}>
+        <Text className="text-white text-xl text-center pb-3">
           Choose your top five traits in order
         </Text>
       )}
@@ -50,23 +52,37 @@ const TraitSelect = ({ traits, addTrait, deleteTrait }: iTraitSelect) => {
               addTrait(selectedItem);
             }
           }}
+          buttonStyle={{
+            backgroundColor: "rgb(33, 33, 33)",
+            borderWidth: 2,
+            borderColor: "white",
+            marginBottom: "5%",
+            borderRadius: 6,
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+          buttonTextStyle={{
+            color: "white",
+          }}
           buttonTextAfterSelection={(selectedItem) => {
             return selectedItem.trait;
           }}
           rowTextForSelection={(item) => {
             return item.trait;
           }}
-          buttonStyle={styles.selectBox}
         />
       )}
       {traits.map((item, index) => (
-        <View key={item.id} style={styles.selectedTrait}>
-          <Text style={styles.traitBoxText}>
+        <View
+          key={item.id}
+          className="p-4 flex flex-row border-2 border-white my-2 rounded-lg"
+        >
+          <Text className="text-white text-xl">
             {index + 1}. {item.trait}
           </Text>
           <TouchableOpacity
-            style={styles.removeTrait}
             onPress={() => deleteTrait(item)}
+            className="ml-auto"
           >
             <Image
               source={require("../../../assets/remove.png")}
@@ -80,49 +96,3 @@ const TraitSelect = ({ traits, addTrait, deleteTrait }: iTraitSelect) => {
 };
 
 export default TraitSelect;
-
-const styles = StyleSheet.create({
-  selectedTrait: {
-    flex: 1,
-    flexDirection: "row",
-    borderWidth: 1,
-    borderColor: "black",
-    justifyContent: "center",
-    alignContent: "center",
-    marginVertical: 10,
-    paddingLeft: "5%",
-    paddingRight: "1%",
-    paddingVertical: "2%",
-    borderRadius: 10,
-    height: 55,
-  },
-  traitBoxText: {
-    paddingTop: "3%",
-    fontSize: 18,
-  },
-  removeTrait: {
-    marginLeft: "auto",
-    padding: 10,
-    borderRadius: 50,
-  },
-  formTitle: {
-    fontSize: 24,
-    textAlign: "center",
-    padding: "3%",
-  },
-  formText: {
-    fontSize: 15,
-    textAlign: "center",
-    padding: "3%",
-    marginBottom: "5%",
-  },
-  selectBox: {
-    borderWidth: 2,
-    borderColor: "black",
-    // width: "100%",
-    borderRadius: 10,
-    marginBottom: "5%",
-    marginLeft: "auto",
-    marginRight: "auto",
-  },
-});

@@ -45,7 +45,7 @@ export default function App() {
               tabBarIcon: () => (
                 <Image
                   source={require("./assets/house-16.png")}
-                  style={{ width: 16, height: 16 }}
+                  style={{ width: 20, height: 20 }}
                 />
               ),
             }}

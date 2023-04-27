@@ -11,9 +11,39 @@ import { useContext } from "react";
 import { useRoute, useNavigation } from "@react-navigation/native";
 
 import iCatData from "interfaces/iCataData";
+import { iImage, iWeight } from "interfaces/iCataData";
 import { AppContext } from "../../context";
 import Page from "../UI/page";
 import { traitList } from "../UI/inputs/traits-list";
+
+interface iStarAmount {
+  num: number | string | iImage | iWeight;
+}
+
+const StarAmount = ({ num }: iStarAmount) => {
+  if (typeof num === "number") {
+    if (num > 0) {
+      const starElements = Array.from({ length: num }, (_, index) => (
+        <Text key={index}>⭐</Text>
+      ));
+      return <View className="flex flex-row">{starElements}</View>;
+    } else if (num === 0) {
+      return (
+        <View className="flex flex-row">
+          <Text className="text-white">None</Text>
+        </View>
+      );
+    }
+  }
+  //only here to satisfy typescript type, there should be a much better way to do this
+  else {
+    return (
+      <View>
+        <Text>None</Text>
+      </View>
+    );
+  }
+};
 
 const CatInfo = () => {
   const route = useRoute();
@@ -57,10 +87,12 @@ const CatInfo = () => {
             className="w-100 h-64 rounded-lg"
           />
         </View>
-        <Text className="text-white text-4xl py-5">{cat.name}</Text>
-        <Text className="text-white text-xl">{cat.description}</Text>
-        <Text className="text-white text-2xl pt-5 pb-3">Alternate Names</Text>
-        <Text className="text-white text-xl">{cat.alt_names || "None"}</Text>
+        <Text className="text-white text-xl pt-5 pb-2">{cat.name}</Text>
+        <Text className="text-white text-md">{cat.description}</Text>
+        <Text className="text-white text-xl pt-5 pb-2">Main Traits: </Text>
+        <Text className="text-white text-md">{cat.temperament}</Text>
+        <Text className="text-white text-xl pt-5 pb-3">Weight:</Text>
+        <Text className="text-white text-md">{cat.weight.imperial} lbs</Text>
         {!catAlreadyinFavorites ? (
           <TouchableOpacity className="rounded-md bg-blue-400 my-4 mt-10 text-[#212121]">
             <Button
@@ -90,11 +122,12 @@ const CatInfo = () => {
             />
           </TouchableOpacity>
         )}
-        <View className="p-5">
+        <View className="p-5 ">
           {traitList.map((trait) => (
-            <Text key={trait.id} className="text-white text-lg">
-              {trait.trait}
-            </Text>
+            <View key={trait.id} className="mb-8">
+              <Text className="text-white text-lg pb-3">{trait.trait}</Text>
+              <StarAmount num={cat[trait.property as keyof iCatData]} />
+            </View>
           ))}
         </View>
       </ScrollView>

@@ -35,28 +35,34 @@ const RatingInput = ({ traits, setValues }: iRatingComponent) => {
 
   return (
     <View>
-      <Text style={styles.formTitle}>Rate Your Traits</Text>
-      <Text style={styles.formText}>Values must be between 1 and 5</Text>
-      <View style={styles.traitContainer}>
+      <Text className="text-white text-2xl text-center pb-3">
+        Rate Your Traits
+      </Text>
+      <Text className="text-white text-xl text-center pb-3">
+        Values must be between 1 and 5
+      </Text>
+      <View className="flex-4">
         {traits.map((item) => (
-          <View key={item.id} style={styles.ratingInput}>
-            <Text style={styles.ratingText}>{item.trait}</Text>
-            <View style={styles.ratingBox}>
-              <TouchableOpacity style={styles.ratingButton}>
+          <View key={item.id} className="py-3 px-12 flex flex-row">
+            <Text className="text-white text-xl w-48">{item.trait}</Text>
+            <View className="pt-5 flex flex-row w-28 border-2 border-white justify-evenly">
+              <TouchableOpacity>
                 <Button
                   onPress={() => setStateValues(item.id, -1)}
                   title="-"
-                  color="black"
+                  color="white"
                   // disabled={!clearDisabled}
                   accessibilityLabel="Learn more about this purple button"
                 />
               </TouchableOpacity>
-              <Text style={styles.ratingNumber}>{item.value.toString()}</Text>
-              <TouchableOpacity style={styles.ratingButton}>
+              <Text className="text-white text-center">
+                {item.value.toString()}
+              </Text>
+              <TouchableOpacity>
                 <Button
                   onPress={() => setStateValues(item.id, 1)}
                   title="+"
-                  color="black"
+                  color="white"
                   // disabled={!clearDisabled}
                   accessibilityLabel="Learn more about this purple button"
                 />
@@ -70,54 +76,3 @@ const RatingInput = ({ traits, setValues }: iRatingComponent) => {
 };
 
 export default RatingInput;
-
-const styles = StyleSheet.create({
-  traitContainer: {
-    flex: 4,
-  },
-  ratingInput: {
-    paddingVertical: "1%",
-    paddingHorizontal: "3%",
-    marginBottom: "5%",
-    flexDirection: "row",
-  },
-  formTitle: {
-    fontSize: 24,
-    textAlign: "center",
-    padding: "3%",
-  },
-  formText: {
-    fontSize: 15,
-    textAlign: "center",
-    padding: "3%",
-    marginBottom: "5%",
-  },
-  textVerticalAlign: {
-    flex: 1,
-    justifyContent: "center",
-  },
-  ratingText: {
-    fontSize: 20,
-    flex: 2,
-    paddingTop: "3%",
-  },
-  ratingNumber: {
-    fontSize: 20,
-    paddingHorizontal: "5%",
-    paddingTop: "3%",
-    width: 35,
-    textAlign: "center",
-  },
-  ratingBox: {
-    flex: 2,
-    flexDirection: "row",
-    justifyContent: "flex-end",
-  },
-  ratingButton: {
-    borderWidth: 1,
-    borderColor: "black",
-    width: 35,
-    height: 35,
-    borderRadius: 6,
-  },
-});

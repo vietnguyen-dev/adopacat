@@ -31,7 +31,7 @@ export const FavoritesResult = ({ catData }: iFavorite) => {
   };
 
   return (
-    <View className="mx-4 mb-6 border-[1px] border-gray-400 rounded-md">
+    <View className="mx-4 mb-3 border-[1px] border-gray-400/80 rounded-md">
       {catData.hasOwnProperty("image") ? (
         <TouchableOpacity
           onPress={() =>
@@ -41,14 +41,14 @@ export const FavoritesResult = ({ catData }: iFavorite) => {
         >
           <Image
             source={{ uri: catData.image.url }}
-            className="w-16 h-16 basis-1/8 rounded-l-md"
+            className="w-14 h-14 basis-1/8 rounded-l-md"
           />
-          <Text className="basis-3/4 pl-3 text-white text-xl pt-3">
+          <Text className="basis-8/12 pl-3 text-white text-xl pt-3">
             {catData.name}
           </Text>
           <TouchableOpacity
             onPress={remove}
-            className="basis-1/8 justify-center"
+            className="basis-1/8 justify-center ml-auto mr-3"
           >
             <Image
               source={require("../../../assets/remove.png")}

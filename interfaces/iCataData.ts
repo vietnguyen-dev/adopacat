@@ -1,8 +1,13 @@
-interface iImage {
+export interface iImage {
     id: string,
     width: number
     height: number,
     url: string
+}
+
+export interface iWeight {
+    imperial: string,
+    metric: string
 }
 
 interface iCatData {
@@ -39,6 +44,7 @@ interface iCatData {
     wikipedia_url: string,
     hypoallergenic: number,
     reference_image_id: string,
+    weight: iWeight;
     image: iImage
 }
 

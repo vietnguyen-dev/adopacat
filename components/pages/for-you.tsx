@@ -49,10 +49,12 @@ export default function ForYou() {
   ];
 
   return (
-    <View style={style.container}>
-      <Text style={style.title}>For You</Text>
-      <Text style={style.title2}>Find specific cats based on your wants</Text>
-      <View style={style.formContainer}>
+    <View className="py-16 px-4">
+      <Text className="text-3xl text-white">For You</Text>
+      <Text className="text-white py-4">
+        Find specific cats based on your wants
+      </Text>
+      <View>
         <Stepper
           active={active}
           content={content}
@@ -64,65 +66,9 @@ export default function ForYou() {
             );
           }}
           onNext={goToNextStep}
-          buttonStyle={
-            active === 0 ? style.stepperButton : style.stepperButton2
-          }
-          buttonTextStyle={{ textAlign: "center" }}
           showButton={selectedTraits.length === 5}
         />
       </View>
     </View>
   );
 }
-
-const style = StyleSheet.create({
-  container: {
-    marginHorizontal: 15,
-    marginVertical: 45,
-    // borderColor: "black",
-    // borderWidth: 1,
-    height: "93%",
-    // flex: 1,
-    // flexDirection: "column",
-  },
-  formContainer: {
-    paddingVertical: "5%",
-    paddingHorizontal: "5%",
-    // marginTop: "auto",
-    flex: 1,
-    // flexDirection: "column",
-    justifyContent: "space-between",
-    alignItems: "stretch",
-    // borderWidth: 3,
-    // borderColor: "red",
-  },
-  title: {
-    fontSize: 32,
-    margin: 15,
-  },
-  title2: {
-    marginLeft: 15,
-    fontSize: 16,
-  },
-  textInput: {
-    width: 330,
-    height: 40,
-    marginTop: 15,
-    // borderColor: "#212121",
-    borderRadius: 25,
-    // borderWidth: 2,
-    paddingLeft: 10,
-  },
-  stepperButton: {
-    marginTop: "7%",
-    marginLeft: "auto",
-    width: "100%",
-    flex: 1,
-    flexDirection: "column",
-  },
-  stepperButton2: {
-    marginTop: "20%",
-    marginLeft: "auto",
-    width: "50%",
-  },
-});

@@ -18,25 +18,13 @@ const Card = ({ catData, size }: iCard) => {
     (item: iCatData) => item.id === catData.id
   );
 
-  const addToFavorites = () => {
-    context.addToFavorites(catData);
-  };
-
-  const removeFromFavorites = () => {
-    context.removeFromFavorites(catData);
-  };
-
   const favorite = () => {
     if (catAlreadyinFavorites) {
-      removeFromFavorites();
+      context.removeFromFavorites(catData);
     } else {
-      addToFavorites();
+      context.addToFavorites(catData);
     }
   };
-
-  const properIcon = catAlreadyinFavorites
-    ? "../../assets/heart.png"
-    : "../../assets/white-outlined-heart.png";
 
   return (
     <View className="rounded-lg border-[1px] border-gray-600/80 ml-5">

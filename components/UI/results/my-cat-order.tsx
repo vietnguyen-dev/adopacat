@@ -1,4 +1,11 @@
-import { View, Text, Image, SafeAreaView, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  SafeAreaView,
+  FlatList,
+  Dimensions,
+} from "react-native";
 import { useEffect, useState } from "react";
 import * as Progress from "react-native-progress";
 
@@ -37,6 +44,12 @@ const ProgressText = ({ value }: iProgressText) => {
 
 const MyCatOrder = ({ catData }: iMyCatOrder) => {
   const [progress, setProgress] = useState<number>(0);
+  const [width, setWidth] = useState<number>(0);
+
+  useEffect(() => {
+    const dimensionY = Dimensions.get("window").width;
+    setWidth(dimensionY * 0.525);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -61,7 +74,7 @@ const MyCatOrder = ({ catData }: iMyCatOrder) => {
         <View className="pt-3">
           <Progress.Bar
             progress={progress}
-            width={230}
+            width={width}
             color={"rgba(96,165,250,1)"}
           />
         </View>

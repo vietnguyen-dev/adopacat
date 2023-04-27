@@ -44,8 +44,8 @@ export const traitList: iTraits[] = [
     },
     {
         id: 6,
-        trait: 'Energetic',
-        property: 'energetic',
+        trait: 'Energy Level',
+        property: 'energy_level',
         description: 'How much energy they have',
         value: 1
     },

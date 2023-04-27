@@ -11,14 +11,18 @@ export default function HomeScreen() {
   return (
     <Stack.Navigator
       initialRouteName="Base"
-      //   screenOptions={{ headerShown: false }}
+      // screenOptions={{ headerShown: false }}
     >
       <Stack.Screen
         name="Base"
         component={Home}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="Cat Info" component={CatInfo} />
+      <Stack.Screen
+        name="Cat Info"
+        component={CatInfo}
+        // options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 }
